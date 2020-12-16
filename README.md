@@ -12,8 +12,8 @@ To be written!
 
 ### To build the tools:
 
-    $ git clone git@github.com:sifive/freedom-toolchain.git
-    $ cd freedom-toolchain
+    $ git clone git@github.com:sifive/freedom-toolchain-metal.git
+    $ cd freedom-toolchain-metal
     $ git submodule update --init --recursive
     $ make package
 
