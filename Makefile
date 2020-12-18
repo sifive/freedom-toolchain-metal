@@ -123,6 +123,60 @@ endif
 	mkdir -p $(dir $@)
 	date > $@
 
+$(OBJ_WIN64)/build/$(PACKAGE_HEADING)/build-binutils/build.stamp: \
+		$(OBJ_WIN64)/build/$(PACKAGE_HEADING)/source.stamp
+ifneq ($(WIN64_BINUTILS_TARBALL),)
+	$(eval $@_TARNAME = $(basename $(basename $(notdir $(WIN64_BINUTILS_TARBALL)))))
+	mkdir -p $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	rm -rf $(OBJ_WIN64)/install/$($@_TARNAME)
+	$(TAR) -xz -C $(OBJ_WIN64)/install -f $(WIN64_BINUTILS_TARBALL)
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/bundle.mk $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/bundle-$($@_TARNAME).mk
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/chmod755-$($@_TARNAME).sh
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/feature-$($@_TARNAME).xml
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/bundle.mk
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml
+	cp -RL $(OBJ_WIN64)/install/$($@_TARNAME)/* $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)/
+endif
+	mkdir -p $(dir $@)
+	date > $@
+
+$(OBJ_WIN64)/build/$(PACKAGE_HEADING)/build-gcc/build.stamp: \
+		$(OBJ_WIN64)/build/$(PACKAGE_HEADING)/build-binutils/build.stamp
+ifneq ($(WIN64_GCC_TARBALL),)
+	$(eval $@_TARNAME = $(basename $(basename $(notdir $(WIN64_GCC_TARBALL)))))
+	mkdir -p $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	rm -rf $(OBJ_WIN64)/install/$($@_TARNAME)
+	$(TAR) -xz -C $(OBJ_WIN64)/install -f $(WIN64_GCC_TARBALL)
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/bundle.mk $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/bundle-$($@_TARNAME).mk
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/chmod755-$($@_TARNAME).sh
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/feature-$($@_TARNAME).xml
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/bundle.mk
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml
+	cp -RL $(OBJ_WIN64)/install/$($@_TARNAME)/* $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)/
+endif
+	mkdir -p $(dir $@)
+	date > $@
+
+$(OBJ_WIN64)/build/$(PACKAGE_HEADING)/build-gdb/build.stamp: \
+		$(OBJ_WIN64)/build/$(PACKAGE_HEADING)/build-gcc/build.stamp
+ifneq ($(WIN64_GDB_TARBALL),)
+	$(eval $@_TARNAME = $(basename $(basename $(notdir $(WIN64_GDB_TARBALL)))))
+	mkdir -p $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	rm -rf $(OBJ_WIN64)/install/$($@_TARNAME)
+	$(TAR) -xz -C $(OBJ_WIN64)/install -f $(WIN64_GDB_TARBALL)
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/bundle.mk $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/bundle-$($@_TARNAME).mk
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/chmod755-$($@_TARNAME).sh
+	cp $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)/feature-$($@_TARNAME).xml
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/bundle.mk
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh
+	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml
+	cp -RL $(OBJ_WIN64)/install/$($@_TARNAME)/* $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)/
+endif
+	mkdir -p $(dir $@)
+	date > $@
+
 $(OBJDIR)/$(NATIVE)/test/$(PACKAGE_HEADING)/test.stamp: \
 		$(OBJDIR)/$(NATIVE)/test/$(PACKAGE_HEADING)/launch.stamp
 	mkdir -p $(dir $@)
