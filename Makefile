@@ -83,8 +83,9 @@ ifneq ($(NATIVE_BINUTILS_TARBALL),)
 	rm -f $(OBJ_NATIVE)/install/$($@_TARNAME)/chmod755.sh
 	rm -f $(OBJ_NATIVE)/install/$($@_TARNAME)/feature.xml
 	cp -RL $(OBJ_NATIVE)/install/$($@_TARNAME)/* $(OBJ_NATIVE)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)/
-	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
+	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -103,8 +104,9 @@ ifneq ($(NATIVE_GCC_TARBALL),)
 	rm -f $(OBJ_NATIVE)/install/$($@_TARNAME)/chmod755.sh
 	rm -f $(OBJ_NATIVE)/install/$($@_TARNAME)/feature.xml
 	cp -RL $(OBJ_NATIVE)/install/$($@_TARNAME)/* $(OBJ_NATIVE)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)/
-	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
+	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -123,8 +125,9 @@ ifneq ($(NATIVE_GDB_TARBALL),)
 	rm -f $(OBJ_NATIVE)/install/$($@_TARNAME)/chmod755.sh
 	rm -f $(OBJ_NATIVE)/install/$($@_TARNAME)/feature.xml
 	cp -RL $(OBJ_NATIVE)/install/$($@_TARNAME)/* $(OBJ_NATIVE)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)/
-	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
+	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -143,8 +146,9 @@ ifneq ($(WIN64_BINUTILS_TARBALL),)
 	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh
 	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml
 	cp -RL $(OBJ_WIN64)/install/$($@_TARNAME)/* $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)/
-	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
+	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -163,8 +167,9 @@ ifneq ($(WIN64_GCC_TARBALL),)
 	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh
 	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml
 	cp -RL $(OBJ_WIN64)/install/$($@_TARNAME)/* $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)/
-	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
+	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -183,8 +188,9 @@ ifneq ($(WIN64_GDB_TARBALL),)
 	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/chmod755.sh
 	rm -f $(OBJ_WIN64)/install/$($@_TARNAME)/feature.xml
 	cp -RL $(OBJ_WIN64)/install/$($@_TARNAME)/* $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)/
-	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
+	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
