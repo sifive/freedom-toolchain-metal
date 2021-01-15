@@ -14,7 +14,6 @@ To be written!
 
     $ git clone git@github.com:sifive/freedom-toolchain-metal.git
     $ cd freedom-toolchain-metal
-    $ git submodule update --init --recursive
     $ make package
 
 The final output is a set of tarballs in the "bin" folder that should be ready to use.
