@@ -42,6 +42,7 @@ $(OBJDIR)/%/build/$(PACKAGE_HEADING)/install.stamp: \
 	cd $($@_INSTALL); zip -rq $(abspath $(dir $@))/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$($@_TARGET).bundle/features/$(PACKAGE_HEADING)_$(FREEDOM_TOOLCHAIN_METAL_ID)_$(RISCV_TOOLCHAIN_METAL_VERSION).jar *
 	tclsh scripts/check-maximum-path-length.tcl $(abspath $($@_INSTALL)) "$(PACKAGE_HEADING)" "$(RISCV_TOOLCHAIN_METAL_VERSION)" "$(FREEDOM_TOOLCHAIN_METAL_ID)"
 	tclsh scripts/check-same-name-different-case.tcl $(abspath $($@_INSTALL))
+	echo $(PATH)
 	date > $@
 
 # We might need some extra target libraries for this package
