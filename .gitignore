@@ -1,4 +1,5 @@
 /obj
 /bin
 /rec*
+/src*
 *.swp

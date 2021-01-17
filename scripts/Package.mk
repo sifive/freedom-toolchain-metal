@@ -34,6 +34,7 @@ $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64).src.zip: \
 	mkdir -p $(dir $@)
 	cd $(abspath $(PREFIXPATH).); zip -x "/bin/*" "/obj/*" -rq $(abspath $@) *
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 
 $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64).tar.gz: \
 		$(OBJDIR)/$(WIN64)/build/$(PACKAGE_HEADING)/install.stamp \
@@ -47,7 +48,9 @@ $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64).src.tar.gz: \
 		$(OBJDIR)/$(WIN64)/build/$(PACKAGE_HEADING)/libs.stamp
 	mkdir -p $(dir $@)
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 	cp -a $(OBJ_WIN64)/rec/$(PACKAGE_HEADING) $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	cp -a $(OBJ_WIN64)/src/$(PACKAGE_HEADING) $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 	$(TAR) --dereference --hard-dereference -C $(abspath $(PREFIXPATH).) --exclude bin --exclude obj -c * | gzip > $(abspath $@)
 
 $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE).tar.gz: \
@@ -60,9 +63,12 @@ $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE).src.tar.gz: \
 		$(OBJDIR)/$(NATIVE)/build/$(PACKAGE_HEADING)/install.stamp
 	mkdir -p $(dir $@)
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	cp -a $(OBJ_NATIVE)/rec/$(PACKAGE_HEADING) $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
+	cp -a $(OBJ_NATIVE)/src/$(PACKAGE_HEADING) $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	$(TAR) --dereference --hard-dereference -C $(abspath $(PREFIXPATH).) --exclude bin --exclude obj -c * | gzip > $(abspath $@)
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 
 # Installs native package.
 PACKAGE_TARBALL = $(wildcard $(BINDIR)/$(PACKAGE_HEADING)-*-$(NATIVE).tar.gz)
@@ -87,20 +93,24 @@ native-regress: $(OBJDIR)/$(NATIVE)/test/$(PACKAGE_HEADING)/test.stamp
 .PHONY: cleanup
 cleanup:
 	rm -rf $(OBJ_NATIVE)/rec/$(PACKAGE_HEADING)
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_NATIVE)/test/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_NATIVE)/build/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_NATIVE)/launch/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	rm -rf $(OBJ_NATIVE)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	rm -rf $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE).tar.gz
 	rm -rf $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE).src.tar.gz
 	rm -rf $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE).bundle
 	rm -rf $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)
+	rm -rf $(OBJ_WIN64)/src/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_WIN64)/test/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_WIN64)/build/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_WIN64)/launch/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 	rm -rf $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 	rm -rf $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64).zip
 	rm -rf $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64).src.zip
 	rm -rf $(BINDIR)/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64).tar.gz
@@ -110,14 +120,18 @@ cleanup:
 .PHONY: flushup
 flushup:
 	rm -rf $(OBJ_NATIVE)/rec/$(PACKAGE_HEADING)
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_NATIVE)/test/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_NATIVE)/build/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_NATIVE)/launch/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	rm -rf $(OBJ_NATIVE)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(NATIVE)
 	rm -rf $(OBJ_WIN64)/rec/$(PACKAGE_HEADING)
+	rm -rf $(OBJ_WIN64)/src/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_WIN64)/test/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_WIN64)/build/$(PACKAGE_HEADING)
 	rm -rf $(OBJ_WIN64)/launch/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 	rm -rf $(OBJ_WIN64)/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
 	rm -rf $(RECDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)
+	rm -rf $(SRCDIR)-$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$(WIN64)

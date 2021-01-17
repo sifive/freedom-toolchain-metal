@@ -7,18 +7,19 @@ PACKAGE_WORDING := Bare Metal Toolchain
 PACKAGE_HEADING := riscv64-unknown-elf-toolchain
 PACKAGE_VERSION := $(RISCV_TOOLCHAIN_METAL_VERSION)-$(FREEDOM_TOOLCHAIN_METAL_ID)$(EXTRA_SUFFIX)
 
-# Source code directory references
-BARE_METAL_TUPLE := riscv64-unknown-elf
-BARE_METAL_CC_FOR_TARGET ?= $(BARE_METAL_TUPLE)-gcc
-BARE_METAL_CXX_FOR_TARGET ?= $(BARE_METAL_TUPLE)-g++
-
 # Some special package references for specific targets
 NATIVE_BINUTILS_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-binutils-*-$(NATIVE).tar.gz)
 NATIVE_GCC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gcc-*-$(NATIVE).tar.gz)
 NATIVE_GDB_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gdb-*-$(NATIVE).tar.gz)
+NATIVE_BINUTILS_SRC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-binutils-*-$(NATIVE).src.tar.gz)
+NATIVE_GCC_SRC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gcc-*-$(NATIVE).src.tar.gz)
+NATIVE_GDB_SRC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gdb-*-$(NATIVE).src.tar.gz)
 WIN64_BINUTILS_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-binutils-*-$(WIN64).tar.gz)
 WIN64_GCC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gcc-*-$(WIN64).tar.gz)
 WIN64_GDB_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gdb-*-$(WIN64).tar.gz)
+WIN64_BINUTILS_SRC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-binutils-*-$(WIN64).src.tar.gz)
+WIN64_GCC_SRC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gcc-*-$(WIN64).src.tar.gz)
+WIN64_GDB_SRC_TARBALL = $(wildcard $(BINDIR)/riscv64-unknown-elf-gdb-*-$(WIN64).src.tar.gz)
 
 # Setup the package targets and switch into secondary makefile targets
 # Targets $(PACKAGE_HEADING)/install.stamp and $(PACKAGE_HEADING)/libs.stamp
@@ -56,17 +57,18 @@ $(OBJDIR)/%/build/$(PACKAGE_HEADING)/source.stamp:
 	$(eval $@_TARGET := $(patsubst $(OBJDIR)/%/build/$(PACKAGE_HEADING)/source.stamp,%,$@))
 	$(eval $@_INSTALL := $(patsubst %/build/$(PACKAGE_HEADING)/source.stamp,%/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$($@_TARGET),$@))
 	$(eval $@_REC := $(abspath $(patsubst %/build/$(PACKAGE_HEADING)/source.stamp,%/rec/$(PACKAGE_HEADING),$@)))
+	$(eval $@_SRC := $(abspath $(patsubst %/build/$(PACKAGE_HEADING)/source.stamp,%/src/$(PACKAGE_HEADING),$@)))
 	tclsh scripts/check-naming-and-version-syntax.tcl "$(PACKAGE_WORDING)" "$(PACKAGE_HEADING)" "$(RISCV_TOOLCHAIN_METAL_VERSION)" "$(FREEDOM_TOOLCHAIN_METAL_ID)"
 	rm -rf $($@_INSTALL)
 	mkdir -p $($@_INSTALL)
 	rm -rf $($@_REC)
 	mkdir -p $($@_REC)
+	rm -rf $($@_SRC)
+	mkdir -p $($@_SRC)
 	rm -rf $(dir $@)
 	mkdir -p $(dir $@)
 	git log > $($@_REC)/$(PACKAGE_HEADING)-git-commit.log
-#	cp .gitmodules $($@_REC)/$(PACKAGE_HEADING)-git-modules.log
 	git remote -v > $($@_REC)/$(PACKAGE_HEADING)-git-remote.log
-#	git submodule status > $($@_REC)/$(PACKAGE_HEADING)-git-submodule.log
 	date > $@
 
 $(OBJ_NATIVE)/build/$(PACKAGE_HEADING)/build-binutils/build.stamp: \
@@ -86,6 +88,14 @@ ifneq ($(NATIVE_BINUTILS_TARBALL),)
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
 	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).zip
+endif
+ifneq ($(NATIVE_BINUTILS_SRC_TARBALL),)
+	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(NATIVE_BINUTILS_SRC_TARBALL)))))
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
+	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
+	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal -f $(NATIVE_BINUTILS_SRC_TARBALL)
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -108,6 +118,14 @@ ifneq ($(NATIVE_GCC_TARBALL),)
 	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
+ifneq ($(NATIVE_GCC_SRC_TARBALL),)
+	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(NATIVE_GCC_SRC_TARBALL)))))
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
+	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
+	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal -f $(NATIVE_GCC_SRC_TARBALL)
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+endif
 	mkdir -p $(dir $@)
 	date > $@
 
@@ -128,6 +146,14 @@ ifneq ($(NATIVE_GDB_TARBALL),)
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
 	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).zip
+endif
+ifneq ($(NATIVE_GDB_SRC_TARBALL),)
+	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(NATIVE_GDB_SRC_TARBALL)))))
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
+	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
+	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal -f $(NATIVE_GDB_SRC_TARBALL)
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -150,6 +176,14 @@ ifneq ($(WIN64_BINUTILS_TARBALL),)
 	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
+ifneq ($(WIN64_BINUTILS_SRC_TARBALL),)
+	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(WIN64_BINUTILS_SRC_TARBALL)))))
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
+	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
+	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal -f $(NATIVE_BINUTILS_SRC_TARBALL)
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+endif
 	mkdir -p $(dir $@)
 	date > $@
 
@@ -171,6 +205,14 @@ ifneq ($(WIN64_GCC_TARBALL),)
 	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).zip
 endif
+ifneq ($(WIN64_GCC_SRC_TARBALL),)
+	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(WIN64_GCC_SRC_TARBALL)))))
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
+	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
+	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal -f $(NATIVE_GCC_SRC_TARBALL)
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+endif
 	mkdir -p $(dir $@)
 	date > $@
 
@@ -191,6 +233,14 @@ ifneq ($(WIN64_GDB_TARBALL),)
 	rm -rf $(BINDIR)/$($@_TARNAME).bundle
 	rm -rf $(BINDIR)/$($@_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_TARNAME).zip
+endif
+ifneq ($(WIN64_GDB_SRC_TARBALL),)
+	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(WIN64_GDB_SRC_TARBALL)))))
+	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
+	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
+	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal -f $(NATIVE_GDB_SRC_TARBALL)
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
