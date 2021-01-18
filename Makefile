@@ -42,6 +42,7 @@ $(OBJDIR)/%/build/$(PACKAGE_HEADING)/install.stamp: \
 	cd $($@_INSTALL); zip -rq $(abspath $(dir $@))/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$($@_TARGET).bundle/features/$(PACKAGE_HEADING)_$(FREEDOM_TOOLCHAIN_METAL_ID)_$(RISCV_TOOLCHAIN_METAL_VERSION).jar *
 	tclsh scripts/check-maximum-path-length.tcl $(abspath $($@_INSTALL)) "$(PACKAGE_HEADING)" "$(RISCV_TOOLCHAIN_METAL_VERSION)" "$(FREEDOM_TOOLCHAIN_METAL_ID)"
 	tclsh scripts/check-same-name-different-case.tcl $(abspath $($@_INSTALL))
+	echo $(PATH)
 	date > $@
 
 # We might need some extra target libraries for this package
@@ -94,8 +95,8 @@ ifneq ($(NATIVE_BINUTILS_SRC_TARBALL),)
 	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
 	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
 	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal -f $(NATIVE_BINUTILS_SRC_TARBALL)
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -123,8 +124,8 @@ ifneq ($(NATIVE_GCC_SRC_TARBALL),)
 	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
 	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
 	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal -f $(NATIVE_GCC_SRC_TARBALL)
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -152,8 +153,8 @@ ifneq ($(NATIVE_GDB_SRC_TARBALL),)
 	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
 	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
 	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal -f $(NATIVE_GDB_SRC_TARBALL)
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -181,8 +182,8 @@ ifneq ($(WIN64_BINUTILS_SRC_TARBALL),)
 	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
 	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
 	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal -f $(NATIVE_BINUTILS_SRC_TARBALL)
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -210,8 +211,8 @@ ifneq ($(WIN64_GCC_SRC_TARBALL),)
 	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
 	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
 	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal -f $(NATIVE_GCC_SRC_TARBALL)
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
@@ -239,8 +240,8 @@ ifneq ($(WIN64_GDB_SRC_TARBALL),)
 	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
 	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
 	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal -f $(NATIVE_GDB_SRC_TARBALL)
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.tar.gz
-	rm -rf $(BINDIR)/$($@_SRC_TARNAME).src.zip
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
+	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
 	mkdir -p $(dir $@)
 	date > $@
