@@ -179,9 +179,9 @@ ifneq ($(WIN64_BINUTILS_TARBALL),)
 endif
 ifneq ($(WIN64_BINUTILS_SRC_TARBALL),)
 	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(WIN64_BINUTILS_SRC_TARBALL)))))
-	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
-	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
-	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-binutils-metal -f $(NATIVE_BINUTILS_SRC_TARBALL)
+	rm -rf $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
+	mkdir -p $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-binutils-metal
+	$(TAR) -xz -C $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-binutils-metal -f $(WIN64_BINUTILS_SRC_TARBALL)
 	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
@@ -208,9 +208,9 @@ ifneq ($(WIN64_GCC_TARBALL),)
 endif
 ifneq ($(WIN64_GCC_SRC_TARBALL),)
 	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(WIN64_GCC_SRC_TARBALL)))))
-	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
-	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
-	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gcc-metal -f $(NATIVE_GCC_SRC_TARBALL)
+	rm -rf $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
+	mkdir -p $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-gcc-metal
+	$(TAR) -xz -C $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-gcc-metal -f $(WIN64_GCC_SRC_TARBALL)
 	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
@@ -237,9 +237,9 @@ ifneq ($(WIN64_GDB_TARBALL),)
 endif
 ifneq ($(WIN64_GDB_SRC_TARBALL),)
 	$(eval $@_SRC_TARNAME = $(basename $(basename $(notdir $(WIN64_GDB_SRC_TARBALL)))))
-	rm -rf $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
-	mkdir -p $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
-	$(TAR) -xz -C $(OBJ_NATIVE)/src/$(PACKAGE_HEADING)/freedom-gdb-metal -f $(NATIVE_GDB_SRC_TARBALL)
+	rm -rf $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
+	mkdir -p $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-gdb-metal
+	$(TAR) -xz -C $(OBJ_WIN64)/src/$(PACKAGE_HEADING)/freedom-gdb-metal -f $(WIN64_GDB_SRC_TARBALL)
 	rm -rf $(BINDIR)/$($@_SRC_TARNAME).tar.gz
 	rm -rf $(BINDIR)/$($@_SRC_TARNAME).zip
 endif
