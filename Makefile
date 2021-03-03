@@ -60,14 +60,11 @@ $(OBJDIR)/%/build/$(PACKAGE_HEADING)/source.stamp:
 	$(eval $@_TARGET := $(patsubst $(OBJDIR)/%/build/$(PACKAGE_HEADING)/source.stamp,%,$@))
 	$(eval $@_INSTALL := $(patsubst %/build/$(PACKAGE_HEADING)/source.stamp,%/install/$(PACKAGE_HEADING)-$(PACKAGE_VERSION)-$($@_TARGET),$@))
 	$(eval $@_BUILDLOG := $(abspath $(patsubst %/build/$(PACKAGE_HEADING)/source.stamp,%/buildlog/$(PACKAGE_HEADING),$@)))
-	$(eval $@_SRC := $(abspath $(patsubst %/build/$(PACKAGE_HEADING)/source.stamp,%/src/$(PACKAGE_HEADING),$@)))
 	tclsh scripts/check-naming-and-version-syntax.tcl "$(PACKAGE_WORDING)" "$(PACKAGE_HEADING)" "$(RISCV_TOOLCHAIN_METAL_VERSION)" "$(FREEDOM_TOOLCHAIN_METAL_ID)$(EXTRA_SUFFIX)"
 	rm -rf $($@_INSTALL)
 	mkdir -p $($@_INSTALL)
 	rm -rf $($@_BUILDLOG)
 	mkdir -p $($@_BUILDLOG)
-	rm -rf $($@_SRC)
-	mkdir -p $($@_SRC)
 	rm -rf $(dir $@)
 	mkdir -p $(dir $@)
 	git log > $($@_BUILDLOG)/$(PACKAGE_HEADING)-git-commit.log
